@@ -1,0 +1,61 @@
+{
+  "name": "cyclejs-wc",
+  "version": "1.0.0",
+  "description": "Utility for creating Web Components based on Cycle.js.",
+  "main": "src/js/index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/erykpiast/cyclejs-wc.git"
+  },
+  "keywords": [
+    "cyclejs",
+    "webcomponent",
+    "wc",
+    "boilerplate"
+  ],
+  "author": "Eryk Napierała <eryk.piast@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/erykpiast/cyclejs-wc/issues"
+  },
+  "homepage": "https://github.com/erykpiast/cyclejs-wc",
+  "dependencies": {
+    "map-values": "^1.0.1"
+  },
+  "peerDependencies": {
+    "cyclejs": ">=0.21"
+  },
+  "devDependencies": {
+    "babel": "~5.2",
+    "babelify": "~6.0",
+    "browserify": "~9.0",
+    "jshint": "~2.7",
+    "jscs": "~1.12",
+    "mocha": "~2.2",
+    "chai": "~2.3",
+    "uglify-js": "~2.4",
+    "cyclejs": "~0.21"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "jshint": "jshint src/",
+    "jscs": "jscs src/",
+    "mocha": "mocha --compilers js:babel/register --reporter spec --ui tdd test",
+    "test": "npm run jshint && npm run mocha",
+    "browserify": "browserify src/index.js -t babelify --standalone createGroup --outfile dist/cyclejs-wc.js",
+    "uglify": "uglifyjs dist/cyclejs-wc.js -o dist/cyclejs-wc.min.js",
+    "dist": "npm run browserify && npm run uglify",
+    "precompile": "rm -rf dist/ && mkdir -p dist",
+    "compile": "babel -d dist/ src/",
+    "prepublish": "npm run compile",
+    "release": "npm run release-patch",
+    "release-patch": "git checkout master && npm run compile; git commit -a -m 'Build dist/'; npm version patch && git push origin master --tags && npm publish",
+    "release-minor": "git checkout master && npm run compile; git commit -a -m 'Build dist/'; npm version minor && git push origin master --tags && npm publish",
+    "release-major": "git checkout master && npm run compile; git commit -a -m 'Build dist/'; npm version major && git push origin master --tags && npm publish"
+  }
+}
